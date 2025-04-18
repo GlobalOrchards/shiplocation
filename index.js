@@ -13,7 +13,7 @@ const vesselPositions = {};
 // Connect to AISStream WebSocket
 const ws = new WebSocket(`wss://stream.aisstream.io/v0/stream` , {
   headers: {
-    "Authorization": 1b7f6abece7f84c76fc0128b6ee121d7469d576b
+    "Authorization": AIS_API_KEY
   }
 });
 
