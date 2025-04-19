@@ -1,2 +1,1 @@
 websockets==11.0.3
-aisstream==0.0.3

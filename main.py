@@ -1,11 +1,20 @@
 import asyncio
-from aisstream import Client
+import websockets
+import json
+import os
 
-API_KEY = "YOUR_API_KEY_HERE"  # Replace this in a later step
+API_KEY = os.environ["API_KEY"]  # Make sure to set this in Render's environment variables
 
-async def run():
-    async with Client(API_KEY) as client:
-        async for message in client:
-            print(message)
+async def listen_to_ais():
+    url = f"wss://stream.aisstream.io/v0/stream"
+    headers = {
+        "Authorization": API_KEY
+    }
 
-asyncio.run(run())
+    async with websockets.connect(url, extra_headers=headers) as websocket:
+        print("Connected to AISStream...")
+        async for message in websocket:
+            data = json.loads(message)
+            print(json.dumps(data, indent=2))  # Prettified output
+
+asyncio.run(listen_to_ais())
