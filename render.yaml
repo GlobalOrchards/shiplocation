@@ -1,0 +1,13 @@
+services:
+  - type: worker                 # keeps a long‑running loop alive
+    name: aisstream-worker
+    runtime: python
+    plan: starter                # background workers are NOT free
+    repo: https://github.com/<you>/aisstream-worker
+    buildCommand: pip install -r requirements.txt
+    startCommand: python main.py
+    envVars:
+      - key: AISSTREAM_API_KEY    # secret from aisstream.io
+        sync: false               # fill it in the dashboard after first push
+      - key: AIS_BBOX             # optional JSON bounding box
+        value: '[[[-130,40],[-110,55]]]'   # e.g. West Coast NA
